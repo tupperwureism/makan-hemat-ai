@@ -216,16 +216,17 @@ function RencanaTab({ state }: { state: BudgetState }) {
   const days = state.days;
   const totalBudget = state.budget;
 
+  const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   const plan = useMemo(() => {
     return Array.from({ length: days }, (_, i) => {
       const day = i + 1;
-      // Sarapan: cheapest warung menu, Siang: warung, Malam: masak
-      const sarapan = warungs[day % warungs.length].menu[1]; // medium
+      const sarapan = warungs[day % warungs.length].menu[1];
       const siang = warungs[(day + 1) % warungs.length].menu[0];
       const malam = recipes[day % recipes.length];
       const subtotal = sarapan.price + siang.price + malam.total;
       return {
         day,
+        dayName: dayNames[i % 7],
         sarapan: { name: sarapan.name, price: sarapan.price, place: warungs[day % warungs.length].name },
         siang: { name: siang.name, price: siang.price, place: warungs[(day + 1) % warungs.length].name },
         malam: { name: malam.name, price: malam.total, place: "Masak di Kos" },
