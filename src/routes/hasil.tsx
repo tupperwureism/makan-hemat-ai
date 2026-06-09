@@ -216,16 +216,17 @@ function RencanaTab({ state }: { state: BudgetState }) {
   const days = state.days;
   const totalBudget = state.budget;
 
+  const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   const plan = useMemo(() => {
     return Array.from({ length: days }, (_, i) => {
       const day = i + 1;
-      // Sarapan: cheapest warung menu, Siang: warung, Malam: masak
-      const sarapan = warungs[day % warungs.length].menu[1]; // medium
+      const sarapan = warungs[day % warungs.length].menu[1];
       const siang = warungs[(day + 1) % warungs.length].menu[0];
       const malam = recipes[day % recipes.length];
       const subtotal = sarapan.price + siang.price + malam.total;
       return {
         day,
+        dayName: dayNames[i % 7],
         sarapan: { name: sarapan.name, price: sarapan.price, place: warungs[day % warungs.length].name },
         siang: { name: siang.name, price: siang.price, place: warungs[(day + 1) % warungs.length].name },
         malam: { name: malam.name, price: malam.total, place: "Masak di Kos" },
@@ -262,14 +263,19 @@ function RencanaTab({ state }: { state: BudgetState }) {
         </div>
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {plan.map((d) => (
           <div
             key={d.day}
             className="rounded-2xl border border-border bg-card p-4"
           >
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-semibold">Hari {d.day}</h4>
+              <div>
+                <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                  {d.dayName}
+                </div>
+                <h4 className="font-semibold leading-tight">Hari {d.day}</h4>
+              </div>
               <span className="text-sm font-bold text-primary">
                 {formatRp(d.subtotal)}
               </span>
@@ -282,16 +288,15 @@ function RencanaTab({ state }: { state: BudgetState }) {
               ].map(({ label, item }) => (
                 <div
                   key={label}
-                  className="flex items-center justify-between rounded-lg bg-secondary px-3 py-2"
+                  className="flex items-center justify-between gap-2 rounded-lg bg-secondary px-3 py-2"
                 >
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
                       {label}
                     </div>
-                    <div className="font-medium text-foreground">{item.name}</div>
-                    <div className="text-xs text-muted-foreground">{item.place}</div>
+                    <div className="font-medium text-foreground truncate">{item.name}</div>
                   </div>
-                  <div className="font-semibold text-foreground">
+                  <div className="font-semibold text-foreground shrink-0">
                     {formatRp(item.price)}
                   </div>
                 </div>
