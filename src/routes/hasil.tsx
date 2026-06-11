@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -11,13 +11,10 @@ import { loadState, perDayBudget, type BudgetState } from "@/lib/budgetStore";
 import { warungs, recipes, formatRp } from "@/lib/mockData";
 
 export const Route = createFileRoute("/hasil")({
-  head: () => ({
-    meta: [
-      { title: "Hasil Rekomendasi — WarungBudget AI" },
-      { name: "description", content: "Rekomendasi warung dan resep sesuai budget kamu." },
-    ],
-  }),
-  component: HasilPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/v2/hasil" });
+  },
+  component: () => null,
 });
 
 function TabSkeleton() {

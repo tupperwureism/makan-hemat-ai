@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,21 +21,10 @@ import {
 import { criteriaOptions, formatRp } from "@/lib/mockData";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "WarungBudget AI — Makan Hemat, Gizi Tetap Terjaga" },
-      {
-        name: "description",
-        content: "Atur budget makan mahasiswa: rekomendasi warung terdekat dan resep masak di kos.",
-      },
-      { property: "og:title", content: "WarungBudget AI" },
-      {
-        property: "og:description",
-        content: "Makan Hemat, Gizi Tetap Terjaga",
-      },
-    ],
-  }),
-  component: BudgetInput,
+  beforeLoad: () => {
+    throw redirect({ to: "/v2" });
+  },
+  component: () => null,
 });
 
 const DAY_OPTIONS = [1, 2, 3, 7, 14, 30];
