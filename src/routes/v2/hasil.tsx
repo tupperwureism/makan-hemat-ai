@@ -91,8 +91,46 @@ function HasilPageV2() {
     async function loadDbData() {
       try {
         const [w, r] = await Promise.all([getWarungs(), getRecipes()]);
-        setWarungsList(w);
-        setRecipesList(r);
+        
+        // Merge with localStorage
+        const customWarungs = JSON.parse(localStorage.getItem("custom_warungs") || "[]");
+        const deletedWarungs = JSON.parse(localStorage.getItem("deleted_warungs") || "[]");
+        const mergedWarungs: any[] = [];
+        const seenWarungIds = new Set();
+        
+        for (const item of w) {
+          if (!seenWarungIds.has(item.id)) {
+            seenWarungIds.add(item.id);
+            mergedWarungs.push(item);
+          }
+        }
+        for (const item of customWarungs) {
+          if (!seenWarungIds.has(item.id)) {
+            seenWarungIds.add(item.id);
+            mergedWarungs.push(item);
+          }
+        }
+        
+        const customRecipes = JSON.parse(localStorage.getItem("custom_recipes") || "[]");
+        const deletedRecipes = JSON.parse(localStorage.getItem("deleted_recipes") || "[]");
+        const mergedRecipes: any[] = [];
+        const seenRecipeIds = new Set();
+        
+        for (const item of r) {
+          if (!seenRecipeIds.has(item.id)) {
+            seenRecipeIds.add(item.id);
+            mergedRecipes.push(item);
+          }
+        }
+        for (const item of customRecipes) {
+          if (!seenRecipeIds.has(item.id)) {
+            seenRecipeIds.add(item.id);
+            mergedRecipes.push(item);
+          }
+        }
+        
+        setWarungsList(mergedWarungs.filter(item => !deletedWarungs.includes(item.id)));
+        setRecipesList(mergedRecipes.filter(item => !deletedRecipes.includes(item.id)));
       } catch (err) {
         console.error("Failed to load db data", err);
       } finally {
@@ -463,7 +501,7 @@ function HasilPageV2() {
                       <tbody>
                         {(() => {
                           const map = new Map<string, { qty: number; total: number }>();
-                          const rotations = Math.max(1, Math.ceil(state.days / recipesList.length));
+                          const rotations = recipesList.length > 0 ? Math.max(1, Math.ceil(state.days / recipesList.length)) : 1;
                           recipesList.forEach((r) => {
                             r.ingredients.forEach((ing: any) => {
                               const cur = map.get(ing.name) ?? { qty: 0, total: 0 };
@@ -517,7 +555,7 @@ function HasilPageV2() {
                   <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
                     {Array.from({ length: state.days }, (_, i) => {
                       const day = i + 1;
-                      const recipe = recipesList[i % recipesList.length];
+                      const recipe = recipesList.length > 0 ? recipesList[i % recipesList.length] : null;
                       if (!recipe) return null;
                       return (
                         <div

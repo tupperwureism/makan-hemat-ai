@@ -193,12 +193,12 @@ async function writeDb(data: any) {
   }
 }
 
-export const getWarungs = createServerFn({ method: "GET" }).handler(async () => {
+export const getWarungs = createServerFn({ method: "POST" }).handler(async () => {
   const db = await readDb();
   return db.warungs;
 });
 
-export const getRecipes = createServerFn({ method: "GET" }).handler(async () => {
+export const getRecipes = createServerFn({ method: "POST" }).handler(async () => {
   const db = await readDb();
   return db.recipes;
 });

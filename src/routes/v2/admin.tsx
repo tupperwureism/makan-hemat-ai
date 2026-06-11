@@ -50,23 +50,23 @@ function AdminPageV2() {
 
   // New Warung Form State
   const [warungName, setWarungName] = useState("");
-  const [warungRating, setWarungRating] = useState(4.5);
-  const [warungDistance, setWarungDistance] = useState(200);
-  const [warungKalori, setWarungKalori] = useState(600);
-  const [warungProtein, setWarungProtein] = useState(25);
-  const [warungMenu, setWarungMenu] = useState<{ name: string; price: number }[]>([
-    { name: "Nasi + Lauk Pilihan", price: 12000 },
+  const [warungRating, setWarungRating] = useState("4.5");
+  const [warungDistance, setWarungDistance] = useState("200");
+  const [warungKalori, setWarungKalori] = useState("600");
+  const [warungProtein, setWarungProtein] = useState("25");
+  const [warungMenu, setWarungMenu] = useState<{ name: string; price: string | number }[]>([
+    { name: "Nasi + Lauk Pilihan", price: "12000" },
   ]);
 
   // New Recipe Form State
   const [recipeName, setRecipeName] = useState("");
-  const [recipeKalori, setRecipeKalori] = useState(400);
-  const [recipeProtein, setRecipeProtein] = useState(15);
-  const [recipePrepTime, setRecipePrepTime] = useState(10);
+  const [recipeKalori, setRecipeKalori] = useState("400");
+  const [recipeProtein, setRecipeProtein] = useState("15");
+  const [recipePrepTime, setRecipePrepTime] = useState("10");
   const [recipeDifficulty, setRecipeDifficulty] = useState("Mudah");
   const [recipeTools, setRecipeTools] = useState("Wajan, Spatula");
-  const [recipeIngredients, setRecipeIngredients] = useState<{ name: string; price: number }[]>([
-    { name: "Bahan Utama", price: 5000 },
+  const [recipeIngredients, setRecipeIngredients] = useState<{ name: string; price: string | number }[]>([
+    { name: "Bahan Utama", price: "5000" },
   ]);
   const [recipeSteps, setRecipeSteps] = useState<string[]>(["Langkah pertama..."]);
 
@@ -104,8 +104,46 @@ function AdminPageV2() {
     setLoading(true);
     try {
       const [w, r] = await Promise.all([getWarungs(), getRecipes()]);
-      setWarungsList(w);
-      setRecipesList(r);
+      
+      // Merge with localStorage
+      const customWarungs = JSON.parse(localStorage.getItem("custom_warungs") || "[]");
+      const deletedWarungs = JSON.parse(localStorage.getItem("deleted_warungs") || "[]");
+      const mergedWarungs: any[] = [];
+      const seenWarungIds = new Set();
+      
+      for (const item of w) {
+        if (!seenWarungIds.has(item.id)) {
+          seenWarungIds.add(item.id);
+          mergedWarungs.push(item);
+        }
+      }
+      for (const item of customWarungs) {
+        if (!seenWarungIds.has(item.id)) {
+          seenWarungIds.add(item.id);
+          mergedWarungs.push(item);
+        }
+      }
+      
+      const customRecipes = JSON.parse(localStorage.getItem("custom_recipes") || "[]");
+      const deletedRecipes = JSON.parse(localStorage.getItem("deleted_recipes") || "[]");
+      const mergedRecipes: any[] = [];
+      const seenRecipeIds = new Set();
+      
+      for (const item of r) {
+        if (!seenRecipeIds.has(item.id)) {
+          seenRecipeIds.add(item.id);
+          mergedRecipes.push(item);
+        }
+      }
+      for (const item of customRecipes) {
+        if (!seenRecipeIds.has(item.id)) {
+          seenRecipeIds.add(item.id);
+          mergedRecipes.push(item);
+        }
+      }
+      
+      setWarungsList(mergedWarungs.filter(item => !deletedWarungs.includes(item.id)));
+      setRecipesList(mergedRecipes.filter(item => !deletedRecipes.includes(item.id)));
     } catch (e) {
       showMsg("Gagal memuat data dari server.", "error");
     } finally {
@@ -125,7 +163,7 @@ function AdminPageV2() {
   const handleMenuChange = (idx: number, field: "name" | "price", val: any) => {
     const updated = [...warungMenu];
     if (field === "price") {
-      updated[idx].price = parseInt(val, 10) || 0;
+      updated[idx].price = val;
     } else {
       updated[idx].name = val;
     }
@@ -134,7 +172,12 @@ function AdminPageV2() {
 
   const handleSubmitWarung = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!warungName || warungMenu.some((m) => !m.name || m.price <= 0)) {
+    const parsedMenu = warungMenu.map((m) => ({
+      name: m.name,
+      price: parseInt(String(m.price), 10) || 0,
+    }));
+
+    if (!warungName || parsedMenu.some((m) => !m.name || m.price <= 0)) {
       showMsg("Harap isi nama warung dan menu dengan benar.", "error");
       return;
     }
@@ -144,23 +187,37 @@ function AdminPageV2() {
       const lat = -7.0527 + (Math.random() - 0.5) * 0.006;
       const lng = 110.4377 + (Math.random() - 0.5) * 0.006;
 
-      await addWarung({
+      const parsedRating = parseFloat(warungRating) || 0;
+      const parsedDistance = parseInt(warungDistance, 10) || 0;
+      const parsedKalori = parseInt(warungKalori, 10) || 0;
+      const parsedProtein = parseInt(warungProtein, 10) || 0;
+
+      const newWarung = await addWarung({
         data: {
           name: warungName,
-          rating: warungRating,
-          distance: warungDistance,
-          menu: warungMenu,
-          kalori: warungKalori,
-          protein: warungProtein,
+          rating: parsedRating,
+          distance: parsedDistance,
+          menu: parsedMenu,
+          kalori: parsedKalori,
+          protein: parsedProtein,
           lat,
           lng,
         },
       });
 
+      // Save to localStorage
+      const customWarungs = JSON.parse(localStorage.getItem("custom_warungs") || "[]");
+      customWarungs.push(newWarung);
+      localStorage.setItem("custom_warungs", JSON.stringify(customWarungs));
+
       showMsg(`Warung ${warungName} berhasil ditambahkan!`, "success");
       // Reset form
       setWarungName("");
-      setWarungMenu([{ name: "Nasi + Lauk Pilihan", price: 12000 }]);
+      setWarungRating("4.5");
+      setWarungDistance("200");
+      setWarungKalori("600");
+      setWarungProtein("25");
+      setWarungMenu([{ name: "Nasi + Lauk Pilihan", price: "12000" }]);
       setShowWarungForm(false);
       loadData();
     } catch (err) {
@@ -172,6 +229,19 @@ function AdminPageV2() {
     if (!confirm("Apakah Anda yakin ingin menghapus warung ini?")) return;
     try {
       await deleteWarung({ data: { id } });
+
+      // Remove from custom list in localStorage
+      const customWarungs = JSON.parse(localStorage.getItem("custom_warungs") || "[]");
+      const updatedCustom = customWarungs.filter((w: any) => w.id !== id);
+      localStorage.setItem("custom_warungs", JSON.stringify(updatedCustom));
+
+      // Add to deleted list in localStorage
+      const deletedWarungs = JSON.parse(localStorage.getItem("deleted_warungs") || "[]");
+      if (!deletedWarungs.includes(id)) {
+        deletedWarungs.push(id);
+        localStorage.setItem("deleted_warungs", JSON.stringify(deletedWarungs));
+      }
+
       showMsg("Warung berhasil dihapus.", "success");
       loadData();
     } catch (err) {
@@ -191,7 +261,7 @@ function AdminPageV2() {
   const handleIngredientChange = (idx: number, field: "name" | "price", val: any) => {
     const updated = [...recipeIngredients];
     if (field === "price") {
-      updated[idx].price = parseInt(val, 10) || 0;
+      updated[idx].price = val;
     } else {
       updated[idx].name = val;
     }
@@ -214,36 +284,53 @@ function AdminPageV2() {
 
   const handleSubmitRecipe = async (e: React.FormEvent) => {
     e.preventDefault();
+    const parsedIngredients = recipeIngredients.map((i) => ({
+      name: i.name,
+      price: parseInt(String(i.price), 10) || 0,
+    }));
+
     if (
       !recipeName ||
-      recipeIngredients.some((i) => !i.name || i.price <= 0) ||
+      parsedIngredients.some((i) => !i.name || i.price <= 0) ||
       recipeSteps.some((s) => !s)
     ) {
       showMsg("Harap isi nama resep, bahan, dan langkah masak dengan benar.", "error");
       return;
     }
 
-    const totalCost = recipeIngredients.reduce((sum, ing) => sum + ing.price, 0);
+    const totalCost = parsedIngredients.reduce((sum, ing) => sum + ing.price, 0);
 
     try {
-      await addRecipe({
+      const parsedKalori = parseInt(recipeKalori, 10) || 0;
+      const parsedProtein = parseInt(recipeProtein, 10) || 0;
+      const parsedPrepTime = parseInt(recipePrepTime, 10) || 0;
+
+      const newRecipe = await addRecipe({
         data: {
           name: recipeName,
-          ingredients: recipeIngredients,
+          ingredients: parsedIngredients,
           total: totalCost,
-          kalori: recipeKalori,
-          protein: recipeProtein,
-          prepTime: recipePrepTime,
+          kalori: parsedKalori,
+          protein: parsedProtein,
+          prepTime: parsedPrepTime,
           difficulty: recipeDifficulty,
           tools: recipeTools.split(",").map((t) => t.trim()),
           steps: recipeSteps,
         },
       });
 
+      // Save to localStorage
+      const customRecipes = JSON.parse(localStorage.getItem("custom_recipes") || "[]");
+      customRecipes.push(newRecipe);
+      localStorage.setItem("custom_recipes", JSON.stringify(customRecipes));
+
       showMsg(`Resep ${recipeName} berhasil ditambahkan!`, "success");
       // Reset form
       setRecipeName("");
-      setRecipeIngredients([{ name: "Bahan Utama", price: 5000 }]);
+      setRecipeKalori("400");
+      setRecipeProtein("15");
+      setRecipePrepTime("10");
+      setRecipeIngredients([{ name: "Bahan Utama", price: "5000" }]);
       setRecipeSteps(["Langkah pertama..."]);
       setShowRecipeForm(false);
       loadData();
@@ -256,6 +343,19 @@ function AdminPageV2() {
     if (!confirm("Apakah Anda yakin ingin menghapus resep ini?")) return;
     try {
       await deleteRecipe({ data: { id } });
+
+      // Remove from custom list in localStorage
+      const customRecipes = JSON.parse(localStorage.getItem("custom_recipes") || "[]");
+      const updatedCustom = customRecipes.filter((r: any) => r.id !== id);
+      localStorage.setItem("custom_recipes", JSON.stringify(updatedCustom));
+
+      // Add to deleted list in localStorage
+      const deletedRecipes = JSON.parse(localStorage.getItem("deleted_recipes") || "[]");
+      if (!deletedRecipes.includes(id)) {
+        deletedRecipes.push(id);
+        localStorage.setItem("deleted_recipes", JSON.stringify(deletedRecipes));
+      }
+
       showMsg("Resep berhasil dihapus.", "success");
       loadData();
     } catch (err) {
@@ -377,7 +477,7 @@ function AdminPageV2() {
                         type="number"
                         step="0.1"
                         value={warungRating}
-                        onChange={(e) => setWarungRating(parseFloat(e.target.value) || 0)}
+                        onChange={(e) => setWarungRating(e.target.value)}
                         className="bg-white/40 dark:bg-zinc-900/40 rounded-xl"
                       />
                     </div>
@@ -386,7 +486,7 @@ function AdminPageV2() {
                       <Input
                         type="number"
                         value={warungDistance}
-                        onChange={(e) => setWarungDistance(parseInt(e.target.value, 10) || 0)}
+                        onChange={(e) => setWarungDistance(e.target.value)}
                         className="bg-white/40 dark:bg-zinc-900/40 rounded-xl"
                       />
                     </div>
@@ -398,7 +498,7 @@ function AdminPageV2() {
                       <Input
                         type="number"
                         value={warungKalori}
-                        onChange={(e) => setWarungKalori(parseInt(e.target.value, 10) || 0)}
+                        onChange={(e) => setWarungKalori(e.target.value)}
                         className="bg-white/40 dark:bg-zinc-900/40 rounded-xl"
                       />
                     </div>
@@ -407,7 +507,7 @@ function AdminPageV2() {
                       <Input
                         type="number"
                         value={warungProtein}
-                        onChange={(e) => setWarungProtein(parseInt(e.target.value, 10) || 0)}
+                        onChange={(e) => setWarungProtein(e.target.value)}
                         className="bg-white/40 dark:bg-zinc-900/40 rounded-xl"
                       />
                     </div>
@@ -438,9 +538,9 @@ function AdminPageV2() {
                           <Input
                             type="number"
                             placeholder="Harga"
-                            value={item.price || ""}
+                            value={item.price}
                             onChange={(e) => handleMenuChange(idx, "price", e.target.value)}
-                            className="bg-white/40 dark:bg-zinc-900/40 rounded-xl text-xs h-9 w-24"
+                            className="bg-white/40 dark:bg-zinc-900/40 text-xs h-9 w-24"
                           />
                           {warungMenu.length > 1 && (
                             <button
@@ -544,8 +644,8 @@ function AdminPageV2() {
                       <Input
                         type="number"
                         value={recipeKalori}
-                        onChange={(e) => setRecipeKalori(parseInt(e.target.value, 10) || 0)}
-                        className="bg-white/40 dark:bg-zinc-900/40 rounded-xl text-xs"
+                        onChange={(e) => setRecipeKalori(e.target.value)}
+                        className="bg-white/40 dark:bg-zinc-900/40 text-xs"
                       />
                     </div>
                     <div className="space-y-2">
@@ -553,8 +653,8 @@ function AdminPageV2() {
                       <Input
                         type="number"
                         value={recipeProtein}
-                        onChange={(e) => setRecipeProtein(parseInt(e.target.value, 10) || 0)}
-                        className="bg-white/40 dark:bg-zinc-900/40 rounded-xl text-xs"
+                        onChange={(e) => setRecipeProtein(e.target.value)}
+                        className="bg-white/40 dark:bg-zinc-900/40 text-xs"
                       />
                     </div>
                     <div className="space-y-2">
@@ -562,8 +662,8 @@ function AdminPageV2() {
                       <Input
                         type="number"
                         value={recipePrepTime}
-                        onChange={(e) => setRecipePrepTime(parseInt(e.target.value, 10) || 0)}
-                        className="bg-white/40 dark:bg-zinc-900/40 rounded-xl text-xs"
+                        onChange={(e) => setRecipePrepTime(e.target.value)}
+                        className="bg-white/40 dark:bg-zinc-900/40 text-xs"
                       />
                     </div>
                   </div>
@@ -625,9 +725,9 @@ function AdminPageV2() {
                           <Input
                             type="number"
                             placeholder="Harga"
-                            value={item.price || ""}
+                            value={item.price}
                             onChange={(e) => handleIngredientChange(idx, "price", e.target.value)}
-                            className="bg-white/40 dark:bg-zinc-900/40 rounded-xl text-xs h-9 w-24"
+                            className="bg-white/40 dark:bg-zinc-900/40 text-xs h-9 w-24"
                           />
                           {recipeIngredients.length > 1 && (
                             <button
