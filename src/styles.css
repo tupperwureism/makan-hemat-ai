@@ -41,21 +41,21 @@
   --card-foreground: oklch(0.2 0.02 50);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2 0.02 50);
-  /* Warm orange #F97316 */
-  --primary: oklch(0.705 0.181 41);
+  /* Premium vibrant blue */
+  --primary: oklch(0.585 0.233 253);
   --primary-foreground: oklch(1 0 0);
-  --primary-soft: oklch(0.96 0.04 60);
-  --secondary: oklch(0.97 0.01 60);
-  --secondary-foreground: oklch(0.25 0.02 50);
-  --muted: oklch(0.97 0.005 60);
-  --muted-foreground: oklch(0.5 0.02 50);
-  --accent: oklch(0.96 0.04 60);
-  --accent-foreground: oklch(0.35 0.12 41);
+  --primary-soft: oklch(0.96 0.02 250);
+  --secondary: oklch(0.97 0.01 250);
+  --secondary-foreground: oklch(0.25 0.02 250);
+  --muted: oklch(0.97 0.005 250);
+  --muted-foreground: oklch(0.5 0.02 250);
+  --accent: oklch(0.96 0.02 250);
+  --accent-foreground: oklch(0.35 0.15 250);
   --destructive: oklch(0.6 0.22 27);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.01 60);
-  --input: oklch(0.92 0.01 60);
-  --ring: oklch(0.705 0.181 41);
+  --border: oklch(0.92 0.01 250);
+  --input: oklch(0.92 0.01 250);
+  --ring: oklch(0.585 0.233 253);
   --success: oklch(0.7 0.17 150);
 }
 
@@ -66,20 +66,20 @@
   --card-foreground: oklch(0.98 0.005 60);
   --popover: oklch(0.22 0.02 50);
   --popover-foreground: oklch(0.98 0.005 60);
-  --primary: oklch(0.705 0.181 41);
+  --primary: oklch(0.585 0.233 253);
   --primary-foreground: oklch(1 0 0);
-  --primary-soft: oklch(0.3 0.06 41);
+  --primary-soft: oklch(0.25 0.06 250);
   --secondary: oklch(0.28 0.02 50);
   --secondary-foreground: oklch(0.98 0.005 60);
   --muted: oklch(0.28 0.02 50);
   --muted-foreground: oklch(0.7 0.02 50);
-  --accent: oklch(0.3 0.06 41);
+  --accent: oklch(0.25 0.06 250);
   --accent-foreground: oklch(0.98 0.005 60);
   --destructive: oklch(0.6 0.22 27);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.705 0.181 41);
+  --ring: oklch(0.585 0.233 253);
   --success: oklch(0.7 0.17 150);
 }
 

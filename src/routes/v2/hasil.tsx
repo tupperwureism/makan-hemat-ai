@@ -150,9 +150,9 @@ function HasilPageV2() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-orange-50/50 to-orange-100/20 dark:from-zinc-950 dark:to-zinc-900 transition-colors duration-300 pb-16 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-b from-blue-50/50 to-blue-100/20 dark:from-zinc-950 dark:to-zinc-900 transition-colors duration-300 pb-16 relative overflow-hidden">
       {/* Decorative Blur Backgrounds */}
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-orange-400/10 dark:bg-orange-600/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-400/10 dark:bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-amber-400/10 dark:bg-amber-600/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Header */}
@@ -161,7 +161,7 @@ function HasilPageV2() {
           <div className="flex items-center gap-3">
             <Link
               to="/v2"
-              className="rounded-xl p-2 hover:bg-orange-500/10 dark:hover:bg-zinc-800 transition-all active:scale-95 border border-border"
+              className="rounded-xl p-2 hover:bg-blue-500/10 dark:hover:bg-zinc-800 transition-all active:scale-95 border border-border"
             >
               <ArrowLeft className="h-4 w-4 text-foreground" />
             </Link>
@@ -171,7 +171,7 @@ function HasilPageV2() {
                   ? "Budget Per Kali Makan"
                   : `Budget Harian (${state.days} hari)`}
               </div>
-              <div className="text-base sm:text-xl font-black text-orange-500">
+              <div className="text-base sm:text-xl font-black text-blue-500">
                 {formatRp(perDay)}
               </div>
             </div>
@@ -195,19 +195,19 @@ function HasilPageV2() {
           <TabsList className="w-full grid grid-cols-3 h-auto p-1 bg-white/55 dark:bg-zinc-900/55 border border-border rounded-2xl glass-panel">
             <TabsTrigger
               value="warung"
-              className="py-2.5 font-bold rounded-xl data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all cursor-pointer"
+              className="py-2.5 font-bold rounded-xl data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all cursor-pointer"
             >
               Warung Makan
             </TabsTrigger>
             <TabsTrigger
               value="masak"
-              className="py-2.5 font-bold rounded-xl data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all cursor-pointer"
+              className="py-2.5 font-bold rounded-xl data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all cursor-pointer"
             >
               Masak di Kos
             </TabsTrigger>
             <TabsTrigger
               value="rencana"
-              className="py-2.5 font-bold rounded-xl data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all cursor-pointer"
+              className="py-2.5 font-bold rounded-xl data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-md transition-all cursor-pointer"
             >
               Rencana Makan
             </TabsTrigger>
@@ -227,7 +227,7 @@ function HasilPageV2() {
                 {/* Filter Controls Panel */}
                 <div className="glass-card rounded-2xl p-4 border space-y-4">
                   <div className="flex items-center gap-2 text-sm font-bold text-foreground">
-                    <SlidersHorizontal className="h-4 w-4 text-orange-500" />
+                    <SlidersHorizontal className="h-4 w-4 text-blue-500" />
                     <span>Filter & Cari Warung</span>
                   </div>
 
@@ -252,7 +252,7 @@ function HasilPageV2() {
                       <select
                         value={maxPrice}
                         onChange={(e) => setMaxPrice(parseInt(e.target.value, 10))}
-                        className="h-10 w-full rounded-xl bg-white/40 dark:bg-zinc-900/40 border border-border text-sm px-3 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                        className="h-10 w-full rounded-xl bg-white/40 dark:bg-zinc-900/40 border border-border text-sm px-3 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       >
                         <option value={10000} className="dark:bg-zinc-900">
                           Rp 10.000
@@ -285,7 +285,7 @@ function HasilPageV2() {
                           onClick={() => setMinProtein(prot)}
                           className={`px-3 py-1 rounded-full text-xs font-semibold transition active:scale-95 cursor-pointer border ${
                             minProtein === prot
-                              ? "bg-orange-500 border-orange-500 text-white"
+                              ? "bg-blue-500 border-blue-500 text-white"
                               : "bg-white/40 dark:bg-zinc-800/40 border-border hover:bg-white/70"
                           }`}
                         >
@@ -321,12 +321,12 @@ function HasilPageV2() {
                                 {w.rating}
                               </span>
                               <span className="flex items-center gap-1 font-medium">
-                                <MapPin className="h-3.5 w-3.5 text-orange-500" />
+                                <MapPin className="h-3.5 w-3.5 text-blue-500" />
                                 {w.distance}m
                               </span>
                             </div>
                           </div>
-                          <span className="text-[10px] font-bold bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 px-2.5 py-1 rounded-full border border-orange-500/20">
+                          <span className="text-[10px] font-bold bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 px-2.5 py-1 rounded-full border border-blue-500/20">
                             Terdekat
                           </span>
                         </div>
@@ -339,7 +339,7 @@ function HasilPageV2() {
                               className="flex justify-between items-center text-sm pb-1.5 border-b border-dashed border-border last:border-0 last:pb-0"
                             >
                               <span className="text-foreground font-medium">{m.name}</span>
-                              <span className="font-bold text-orange-600 dark:text-orange-400">
+                              <span className="font-bold text-blue-600 dark:text-blue-400">
                                 {formatRp(m.price)}
                               </span>
                             </div>
@@ -348,8 +348,8 @@ function HasilPageV2() {
 
                         {/* Nutrition info */}
                         <div className="grid grid-cols-2 gap-2 text-center text-xs">
-                          <div className="bg-orange-500/10 dark:bg-orange-500/20 border border-orange-500/20 rounded-xl py-2 px-3">
-                            <span className="flex items-center justify-center gap-1 text-orange-600 dark:text-orange-400 font-bold mb-0.5">
+                          <div className="bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 rounded-xl py-2 px-3">
+                            <span className="flex items-center justify-center gap-1 text-blue-600 dark:text-blue-400 font-bold mb-0.5">
                               <Flame className="h-3.5 w-3.5" /> Kalori
                             </span>
                             <span className="font-black text-foreground">{w.kalori} kkal</span>
@@ -386,7 +386,7 @@ function HasilPageV2() {
                         <div>
                           <h3 className="font-bold text-lg text-foreground">{r.name}</h3>
                           <div className="flex items-center gap-3 mt-1.5 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1 font-semibold text-orange-500">
+                            <span className="flex items-center gap-1 font-semibold text-blue-500">
                               <Clock className="h-3.5 w-3.5" />
                               {r.prepTime || 10} menit
                             </span>
@@ -398,7 +398,7 @@ function HasilPageV2() {
                         <Button
                           size="sm"
                           onClick={() => setSelectedRecipe(r)}
-                          className="bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs font-bold px-3 py-1 cursor-pointer"
+                          className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs font-bold px-3 py-1 cursor-pointer"
                         >
                           <BookOpen className="h-3.5 w-3.5 mr-1" /> Langkah Masak
                         </Button>
@@ -422,7 +422,7 @@ function HasilPageV2() {
                       {/* Total cost and nutrition */}
                       <div className="flex justify-between items-center border-t border-border pt-3">
                         <div className="flex gap-2">
-                          <span className="text-xs bg-orange-500/10 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 px-2.5 py-1 rounded-lg font-bold flex items-center gap-0.5">
+                          <span className="text-xs bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 px-2.5 py-1 rounded-lg font-bold flex items-center gap-0.5">
                             <Flame className="h-3 w-3" /> {r.kalori} kkal
                           </span>
                           <span className="text-xs bg-zinc-500/10 dark:bg-zinc-500/20 text-foreground px-2.5 py-1 rounded-lg font-bold flex items-center gap-0.5">
@@ -431,7 +431,7 @@ function HasilPageV2() {
                         </div>
                         <div className="text-right">
                           <span className="text-xs text-muted-foreground block">Total Bahan</span>
-                          <span className="font-black text-lg text-orange-500">
+                          <span className="font-black text-lg text-blue-500">
                             {formatRp(r.total)}
                           </span>
                         </div>
@@ -443,7 +443,7 @@ function HasilPageV2() {
                 {/* Stock shopping aggregate */}
                 <section className="glass-card rounded-2xl p-5 border space-y-4">
                   <h3 className="font-bold text-base text-foreground flex items-center gap-2">
-                    <UtensilsCrossed className="h-4.5 w-4.5 text-orange-500" />
+                    <UtensilsCrossed className="h-4.5 w-4.5 text-blue-500" />
                     <span>Daftar Belanja Bahan untuk {state.days} Hari</span>
                   </h3>
                   <p className="text-xs text-muted-foreground">
@@ -453,7 +453,7 @@ function HasilPageV2() {
 
                   <div className="overflow-hidden rounded-xl border border-border">
                     <table className="w-full text-sm">
-                      <thead className="bg-orange-500/10 dark:bg-zinc-900 text-foreground">
+                      <thead className="bg-blue-500/10 dark:bg-zinc-900 text-foreground">
                         <tr className="text-left font-semibold">
                           <th className="px-4 py-3">Bahan Makanan</th>
                           <th className="px-4 py-3 text-center">Jumlah</th>
@@ -493,11 +493,11 @@ function HasilPageV2() {
                                   </td>
                                 </tr>
                               ))}
-                              <tr className="border-t border-border bg-orange-500/10 dark:bg-orange-500/20 font-bold">
+                              <tr className="border-t border-border bg-blue-500/10 dark:bg-blue-500/20 font-bold">
                                 <td className="px-4 py-3 font-extrabold" colSpan={2}>
                                   Total Estimasi Belanja
                                 </td>
-                                <td className="px-4 py-3 text-right font-black text-orange-600 dark:text-orange-400">
+                                <td className="px-4 py-3 text-right font-black text-blue-600 dark:text-blue-400">
                                   {formatRp(stok.reduce((a, b) => a + b.total, 0))}
                                 </td>
                               </tr>
@@ -526,7 +526,7 @@ function HasilPageV2() {
                         >
                           <span className="font-bold text-foreground">Hari {day}</span>
                           <span className="text-muted-foreground font-medium">{recipe.name}</span>
-                          <span className="font-bold text-orange-500">
+                          <span className="font-bold text-blue-500">
                             {formatRp(recipe.total)}
                           </span>
                         </div>
@@ -615,11 +615,11 @@ function HasilPageV2() {
 
                         <Progress
                           value={pct}
-                          className={`h-2.5 rounded-full ${overBudget ? "bg-red-500/20" : "bg-orange-500/20"}`}
+                          className={`h-2.5 rounded-full ${overBudget ? "bg-red-500/20" : "bg-blue-500/20"}`}
                         />
 
                         <div className="flex justify-between items-center text-xs font-bold mt-1">
-                          <span className={overBudget ? "text-red-500" : "text-orange-500"}>
+                          <span className={overBudget ? "text-red-500" : "text-blue-500"}>
                             Terpakai {pct.toFixed(0)}% dari budget
                           </span>
                           {overBudget && (
@@ -647,7 +647,7 @@ function HasilPageV2() {
                                   Hari {d.day}
                                 </h4>
                               </div>
-                              <span className="text-sm font-black text-orange-500">
+                              <span className="text-sm font-black text-blue-500">
                                 {formatRp(d.subtotal)}
                               </span>
                             </div>
@@ -703,8 +703,8 @@ function HasilPageV2() {
           {selectedRecipe && (
             <div className="space-y-5 mt-4 overflow-y-auto max-h-[70vh] pr-1">
               {/* Recipe Meta */}
-              <div className="flex justify-between items-center p-3 rounded-2xl bg-orange-500/10 dark:bg-orange-500/20 border border-orange-500/20 text-xs font-bold">
-                <span className="flex items-center gap-1 text-orange-600 dark:text-orange-400">
+              <div className="flex justify-between items-center p-3 rounded-2xl bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 text-xs font-bold">
+                <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400">
                   <Clock className="h-4 w-4" /> Waktu: {selectedRecipe.prepTime} mnt
                 </span>
                 <span className="text-foreground">Kesulitan: {selectedRecipe.difficulty}</span>
@@ -739,7 +739,7 @@ function HasilPageV2() {
                       className="flex justify-between p-2.5 text-xs bg-white/20 dark:bg-zinc-900/20"
                     >
                       <span className="font-medium text-foreground">{ing.name}</span>
-                      <span className="font-bold text-orange-600 dark:text-orange-400">
+                      <span className="font-bold text-blue-600 dark:text-blue-400">
                         {formatRp(ing.price)}
                       </span>
                     </div>
@@ -758,7 +758,7 @@ function HasilPageV2() {
                       key={idx}
                       className="flex items-start gap-3 bg-white/40 dark:bg-zinc-900/40 p-3 rounded-2xl border border-border/80"
                     >
-                      <span className="h-6 w-6 rounded-full bg-orange-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm">
+                      <span className="h-6 w-6 rounded-full bg-blue-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-sm">
                         {idx + 1}
                       </span>
                       <p className="text-xs font-medium text-foreground leading-relaxed pt-0.5">
@@ -776,7 +776,7 @@ function HasilPageV2() {
               <div className="pt-2">
                 <Button
                   onClick={() => setSelectedRecipe(null)}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-bold cursor-pointer"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold cursor-pointer"
                 >
                   <CheckCircle className="h-4 w-4 mr-1.5" /> Selesai & Tutup
                 </Button>

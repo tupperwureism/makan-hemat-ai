@@ -99,9 +99,9 @@ function BudgetInputV2() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-orange-50/50 to-orange-100/20 dark:from-zinc-950 dark:to-zinc-900 transition-colors duration-300 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-b from-blue-50/50 to-blue-100/20 dark:from-zinc-950 dark:to-zinc-900 transition-colors duration-300 relative overflow-hidden">
       {/* Decorative Blur Backgrounds */}
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-orange-400/10 dark:bg-orange-600/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-400/10 dark:bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-amber-400/10 dark:bg-amber-600/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="mx-auto max-w-xl px-4 py-8 sm:py-12 relative z-10">
@@ -136,12 +136,12 @@ function BudgetInputV2() {
 
         {/* Header */}
         <header className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 rounded-full bg-orange-500/10 dark:bg-orange-500/20 px-3 py-1 text-xs font-medium text-orange-600 dark:text-orange-400 mb-3 border border-orange-500/20">
+          <div className="inline-flex items-center gap-2 rounded-full bg-blue-500/10 dark:bg-blue-500/20 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 mb-3 border border-blue-500/20">
             <Sparkles className="h-3.5 w-3.5 animate-pulse" /> Versi 2.0 (Dinamis & Estetik)
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground bg-clip-text">
             Warung
-            <span className="text-orange-500 drop-shadow-[0_2px_10px_rgba(249,115,22,0.15)]">
+            <span className="text-blue-500 drop-shadow-[0_2px_10px_rgba(249,115,22,0.15)]">
               Budget
             </span>{" "}
             AI
@@ -175,7 +175,7 @@ function BudgetInputV2() {
                   }));
                 }}
                 placeholder="100.000"
-                className="pl-12 h-14 text-xl font-bold rounded-2xl bg-white/50 dark:bg-zinc-900/50 border-orange-200/50 dark:border-zinc-800 focus:border-orange-500 dark:focus:border-orange-500 focus:ring-orange-500/20 dark:focus:ring-orange-500/10 transition-all"
+                className="pl-12 h-14 text-xl font-bold rounded-2xl bg-white/50 dark:bg-zinc-900/50 border-blue-200/50 dark:border-zinc-800 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500/20 dark:focus:ring-blue-500/10 transition-all"
               />
             </div>
           </div>
@@ -199,7 +199,7 @@ function BudgetInputV2() {
                   onClick={() => setMode(opt.id)}
                   className={`rounded-2xl border px-3 py-3 text-sm font-semibold transition-all duration-300 active:scale-95 cursor-pointer ${
                     state.mode === opt.id
-                      ? "border-orange-500 bg-orange-500 text-white shadow-lg shadow-orange-500/20"
+                      ? "border-blue-500 bg-blue-500 text-white shadow-lg shadow-blue-500/20"
                       : "border-border bg-white/40 dark:bg-zinc-800/40 text-foreground hover:bg-white/80 dark:hover:bg-zinc-800/80"
                   }`}
                 >
@@ -214,7 +214,7 @@ function BudgetInputV2() {
                   value={String(state.days)}
                   onValueChange={(v) => setState((s) => ({ ...s, days: parseInt(v, 10) }))}
                 >
-                  <SelectTrigger className="h-11 rounded-xl bg-white/50 dark:bg-zinc-900/50 border-orange-200/50 dark:border-zinc-800">
+                  <SelectTrigger className="h-11 rounded-xl bg-white/50 dark:bg-zinc-900/50 border-blue-200/50 dark:border-zinc-800">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-white dark:bg-zinc-950 border border-border">
@@ -230,13 +230,13 @@ function BudgetInputV2() {
 
             {/* Per unit calc */}
             {state.budget > 0 && (
-              <div className="mt-4 rounded-2xl bg-orange-500/10 dark:bg-orange-500/20 border border-orange-500/20 px-5 py-4 transition-all duration-300 animate-slide-in">
-                <div className="text-xs font-medium text-orange-600 dark:text-orange-400">
+              <div className="mt-4 rounded-2xl bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 px-5 py-4 transition-all duration-300 animate-slide-in">
+                <div className="text-xs font-medium text-blue-600 dark:text-blue-400">
                   {state.mode === "sekali"
                     ? "Budget Per Kali Makan"
                     : `Budget Harian (Total Budget ÷ ${state.days} hari)`}
                 </div>
-                <div className="text-2xl font-black text-orange-600 dark:text-orange-400 mt-1">
+                <div className="text-2xl font-black text-blue-600 dark:text-blue-400 mt-1">
                   {formatRp(perUnit)}
                 </div>
               </div>
@@ -259,7 +259,7 @@ function BudgetInputV2() {
                     onClick={() => toggleCriteria(c.id)}
                     className={`rounded-full border px-4 py-2 text-xs font-semibold transition-all duration-300 cursor-pointer active:scale-95 ${
                       active
-                        ? "border-orange-500 bg-orange-500 text-white shadow-md shadow-orange-500/10"
+                        ? "border-blue-500 bg-blue-500 text-white shadow-md shadow-blue-500/10"
                         : "border-border bg-white/40 dark:bg-zinc-800/40 text-foreground hover:bg-white/80 dark:hover:bg-zinc-800/80"
                     }`}
                   >
@@ -274,7 +274,7 @@ function BudgetInputV2() {
           <Button
             onClick={onSubmit}
             disabled={!state.budget}
-            className="w-full h-14 text-base font-bold rounded-2xl bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/20 hover:shadow-orange-600/30 transition-all duration-300 active:scale-[0.98] cursor-pointer"
+            className="w-full h-14 text-base font-bold rounded-2xl bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/20 hover:shadow-blue-600/30 transition-all duration-300 active:scale-[0.98] cursor-pointer"
           >
             <Sparkles className="h-5 w-5 mr-1" />
             Cari Rekomendasi Hemat
@@ -284,14 +284,14 @@ function BudgetInputV2() {
         {/* Feature pills */}
         <div className="mt-6 grid grid-cols-2 gap-3">
           <div className="flex items-center gap-3 rounded-2xl border border-border bg-white/40 dark:bg-zinc-800/40 backdrop-blur-md px-5 py-4 text-sm font-semibold transition-all hover:bg-white/70 dark:hover:bg-zinc-800/70 shadow-xs">
-            <div className="h-8 w-8 rounded-full bg-orange-500/10 dark:bg-orange-500/20 flex items-center justify-center">
-              <Utensils className="h-4 w-4 text-orange-500" />
+            <div className="h-8 w-8 rounded-full bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center">
+              <Utensils className="h-4 w-4 text-blue-500" />
             </div>
             <span>Rekomendasi Warung</span>
           </div>
           <div className="flex items-center gap-3 rounded-2xl border border-border bg-white/40 dark:bg-zinc-800/40 backdrop-blur-md px-5 py-4 text-sm font-semibold transition-all hover:bg-white/70 dark:hover:bg-zinc-800/70 shadow-xs">
-            <div className="h-8 w-8 rounded-full bg-orange-500/10 dark:bg-orange-500/20 flex items-center justify-center">
-              <ChefHat className="h-4 w-4 text-orange-500" />
+            <div className="h-8 w-8 rounded-full bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center">
+              <ChefHat className="h-4 w-4 text-blue-500" />
             </div>
             <span>Masak Hemat di Kos</span>
           </div>

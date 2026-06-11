@@ -264,9 +264,9 @@ function AdminPageV2() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-orange-50/50 to-orange-100/20 dark:from-zinc-950 dark:to-zinc-900 transition-colors duration-300 pb-16 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-b from-blue-50/50 to-blue-100/20 dark:from-zinc-950 dark:to-zinc-900 transition-colors duration-300 pb-16 relative overflow-hidden">
       {/* Decorative Blur Backgrounds */}
-      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-orange-400/10 dark:bg-orange-600/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-400/10 dark:bg-blue-600/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-amber-400/10 dark:bg-amber-600/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Header */}
@@ -275,7 +275,7 @@ function AdminPageV2() {
           <div className="flex items-center gap-3">
             <Link
               to="/v2"
-              className="rounded-xl p-2 hover:bg-orange-500/10 dark:hover:bg-zinc-800 transition-all active:scale-95 border border-border"
+              className="rounded-xl p-2 hover:bg-blue-500/10 dark:hover:bg-zinc-800 transition-all active:scale-95 border border-border"
             >
               <ArrowLeft className="h-4 w-4 text-foreground" />
             </Link>
@@ -334,13 +334,13 @@ function AdminPageV2() {
             <div className="space-y-4">
               <div className="flex justify-between items-center bg-white/40 dark:bg-zinc-800/40 border border-border p-4 rounded-2xl glass-panel">
                 <div className="flex items-center gap-2">
-                  <Utensils className="h-5 w-5 text-orange-500" />
+                  <Utensils className="h-5 w-5 text-blue-500" />
                   <h2 className="font-extrabold text-base">Daftar Warung ({warungsList.length})</h2>
                 </div>
                 <Button
                   size="sm"
                   onClick={() => setShowWarungForm(!showWarungForm)}
-                  className="bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs font-bold cursor-pointer"
+                  className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs font-bold cursor-pointer"
                 >
                   {showWarungForm ? (
                     <X className="h-3.5 w-3.5 mr-1" />
@@ -419,7 +419,7 @@ function AdminPageV2() {
                       <button
                         type="button"
                         onClick={handleAddMenuRow}
-                        className="text-xs font-bold text-orange-500 flex items-center gap-0.5 hover:underline"
+                        className="text-xs font-bold text-blue-500 flex items-center gap-0.5 hover:underline"
                       >
                         <Plus className="h-3 w-3" /> Tambah Baris
                       </button>
@@ -458,7 +458,7 @@ function AdminPageV2() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-bold cursor-pointer"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold cursor-pointer"
                   >
                     Simpan Warung Ke Database
                   </Button>
@@ -478,7 +478,7 @@ function AdminPageV2() {
                         ⭐ {w.rating} • 📍 {w.distance}m • {w.menu.length} menu makanan
                       </span>
                       <div className="flex gap-1.5 pt-1">
-                        <span className="text-[10px] bg-orange-500/10 text-orange-600 dark:text-orange-400 font-bold px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold px-2 py-0.5 rounded-md">
                           {w.kalori} kkal
                         </span>
                         <span className="text-[10px] bg-zinc-500/10 text-foreground font-bold px-2 py-0.5 rounded-md">
@@ -502,13 +502,13 @@ function AdminPageV2() {
             <div className="space-y-4">
               <div className="flex justify-between items-center bg-white/40 dark:bg-zinc-800/40 border border-border p-4 rounded-2xl glass-panel">
                 <div className="flex items-center gap-2">
-                  <ChefHat className="h-5 w-5 text-orange-500" />
+                  <ChefHat className="h-5 w-5 text-blue-500" />
                   <h2 className="font-extrabold text-base">Daftar Resep ({recipesList.length})</h2>
                 </div>
                 <Button
                   size="sm"
                   onClick={() => setShowRecipeForm(!showRecipeForm)}
-                  className="bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs font-bold cursor-pointer"
+                  className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs font-bold cursor-pointer"
                 >
                   {showRecipeForm ? (
                     <X className="h-3.5 w-3.5 mr-1" />
@@ -574,7 +574,7 @@ function AdminPageV2() {
                       <select
                         value={recipeDifficulty}
                         onChange={(e) => setRecipeDifficulty(e.target.value)}
-                        className="bg-white/40 dark:bg-zinc-900/40 rounded-xl h-10 text-xs w-full border border-border px-3 focus:outline-none focus:ring-1 focus:ring-orange-500 text-foreground dark:text-foreground"
+                        className="bg-white/40 dark:bg-zinc-900/40 rounded-xl h-10 text-xs w-full border border-border px-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-foreground dark:text-foreground"
                       >
                         <option value="Mudah" className="dark:bg-zinc-900 text-foreground">
                           Mudah
@@ -606,7 +606,7 @@ function AdminPageV2() {
                       <button
                         type="button"
                         onClick={handleAddIngredientRow}
-                        className="text-xs font-bold text-orange-500 flex items-center gap-0.5 hover:underline"
+                        className="text-xs font-bold text-blue-500 flex items-center gap-0.5 hover:underline"
                       >
                         <Plus className="h-3 w-3" /> Tambah Bahan
                       </button>
@@ -650,7 +650,7 @@ function AdminPageV2() {
                       <button
                         type="button"
                         onClick={handleAddStepRow}
-                        className="text-xs font-bold text-orange-500 flex items-center gap-0.5 hover:underline"
+                        className="text-xs font-bold text-blue-500 flex items-center gap-0.5 hover:underline"
                       >
                         <Plus className="h-3 w-3" /> Tambah Langkah
                       </button>
@@ -659,7 +659,7 @@ function AdminPageV2() {
                     <div className="space-y-2">
                       {recipeSteps.map((step, idx) => (
                         <div key={idx} className="flex gap-2 items-center">
-                          <span className="text-xs font-bold text-orange-500 w-5 text-center shrink-0">
+                          <span className="text-xs font-bold text-blue-500 w-5 text-center shrink-0">
                             {idx + 1}
                           </span>
                           <Input
@@ -685,7 +685,7 @@ function AdminPageV2() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-xl font-bold cursor-pointer"
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold cursor-pointer"
                   >
                     Simpan Resep Ke Database
                   </Button>
@@ -706,7 +706,7 @@ function AdminPageV2() {
                         makanan
                       </span>
                       <div className="flex gap-1.5 pt-1">
-                        <span className="text-[10px] bg-orange-500/10 text-orange-600 dark:text-orange-400 font-bold px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold px-2 py-0.5 rounded-md">
                           {r.kalori} kkal
                         </span>
                         <span className="text-[10px] bg-zinc-500/10 text-foreground font-bold px-2 py-0.5 rounded-md">
