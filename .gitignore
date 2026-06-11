@@ -32,4 +32,5 @@ dist-ssr
 *.sw?
 .vercel
 local_build/
-
+drafts/
+*.pdf
