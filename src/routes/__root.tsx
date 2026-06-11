@@ -85,8 +85,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "WarungBudgetAiVer2" },
       { property: "og:description", content: "Makan Hemat, Gizi Tetap Terjaga" },
       { name: "twitter:description", content: "Makan Hemat, Gizi Tetap Terjaga" },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5a15d32a-85ce-4e3d-994f-1c836d72a06b/id-preview-6d23493f--097364c9-74ae-4384-bc2e-5c60cc3c5d4d.lovable.app-1781016969782.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5a15d32a-85ce-4e3d-994f-1c836d72a06b/id-preview-6d23493f--097364c9-74ae-4384-bc2e-5c60cc3c5d4d.lovable.app-1781016969782.png" },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5a15d32a-85ce-4e3d-994f-1c836d72a06b/id-preview-6d23493f--097364c9-74ae-4384-bc2e-5c60cc3c5d4d.lovable.app-1781016969782.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5a15d32a-85ce-4e3d-994f-1c836d72a06b/id-preview-6d23493f--097364c9-74ae-4384-bc2e-5c60cc3c5d4d.lovable.app-1781016969782.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

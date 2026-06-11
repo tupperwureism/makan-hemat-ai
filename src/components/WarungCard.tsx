@@ -2,13 +2,7 @@ import { Star, MapPin, Flame, Dumbbell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { formatRp, type Warung } from "@/lib/mockData";
 
-export function WarungCard({
-  warung,
-  onSelect,
-}: {
-  warung: Warung;
-  onSelect?: () => void;
-}) {
+export function WarungCard({ warung, onSelect }: { warung: Warung; onSelect?: () => void }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-4 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between gap-3">
@@ -47,17 +41,13 @@ export function WarungCard({
           <div className="flex items-center gap-1.5 text-xs text-accent-foreground">
             <Flame className="h-3.5 w-3.5" /> Kalori
           </div>
-          <div className="text-sm font-semibold text-accent-foreground">
-            {warung.kalori} kkal
-          </div>
+          <div className="text-sm font-semibold text-accent-foreground">{warung.kalori} kkal</div>
         </div>
         <div className="flex-1 rounded-lg bg-secondary px-3 py-1.5">
           <div className="flex items-center gap-1.5 text-xs text-secondary-foreground">
             <Dumbbell className="h-3.5 w-3.5" /> Protein
           </div>
-          <div className="text-sm font-semibold text-secondary-foreground">
-            {warung.protein}g
-          </div>
+          <div className="text-sm font-semibold text-secondary-foreground">{warung.protein}g</div>
         </div>
       </div>
     </div>

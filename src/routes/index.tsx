@@ -26,8 +26,7 @@ export const Route = createFileRoute("/")({
       { title: "WarungBudget AI — Makan Hemat, Gizi Tetap Terjaga" },
       {
         name: "description",
-        content:
-          "Atur budget makan mahasiswa: rekomendasi warung terdekat dan resep masak di kos.",
+        content: "Atur budget makan mahasiswa: rekomendasi warung terdekat dan resep masak di kos.",
       },
       { property: "og:title", content: "WarungBudget AI" },
       {
@@ -69,9 +68,7 @@ function BudgetInput() {
   const toggleCriteria = (id: string) => {
     setState((s) => ({
       ...s,
-      criteria: s.criteria.includes(id)
-        ? s.criteria.filter((c) => c !== id)
-        : [...s.criteria, id],
+      criteria: s.criteria.includes(id) ? s.criteria.filter((c) => c !== id) : [...s.criteria, id],
     }));
   };
 
@@ -93,9 +90,7 @@ function BudgetInput() {
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             Warung<span className="text-primary">Budget</span> AI
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Makan Hemat, Gizi Tetap Terjaga
-          </p>
+          <p className="mt-2 text-sm text-muted-foreground">Makan Hemat, Gizi Tetap Terjaga</p>
         </header>
 
         {/* Card */}
@@ -157,9 +152,7 @@ function BudgetInput() {
               <div className="mt-3">
                 <Select
                   value={String(state.days)}
-                  onValueChange={(v) =>
-                    setState((s) => ({ ...s, days: parseInt(v, 10) }))
-                  }
+                  onValueChange={(v) => setState((s) => ({ ...s, days: parseInt(v, 10) }))}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -183,9 +176,7 @@ function BudgetInput() {
                     ? "Budget per makan"
                     : `Budget per hari (÷ ${state.days} hari)`}
                 </div>
-                <div className="text-lg font-bold text-accent-foreground">
-                  {formatRp(perUnit)}
-                </div>
+                <div className="text-lg font-bold text-accent-foreground">{formatRp(perUnit)}</div>
               </div>
             )}
           </div>

@@ -1,15 +1,6 @@
 import { useEffect, useRef } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import type L from "leaflet";
 import type { Warung } from "@/lib/mockData";
-
-// Fix default marker icons
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-});
 
 const center: [number, number] = [-7.0527, 110.4377];
 
@@ -19,30 +10,55 @@ export function WarungMap({ warungs }: { warungs: Warung[] }) {
 
   useEffect(() => {
     if (!ref.current || mapRef.current) return;
-    const map = L.map(ref.current).setView(center, 16);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap",
-    }).addTo(map);
 
-    L.circleMarker(center, {
-      radius: 8,
-      color: "#F97316",
-      fillColor: "#F97316",
-      fillOpacity: 1,
-    })
-      .addTo(map)
-      .bindPopup("Lokasi kamu (Tembalang)");
+    let active = true;
 
-    warungs.forEach((w) => {
-      L.marker([w.lat, w.lng])
+    async function initMap() {
+      // Dynamic imports for browser-only Leaflet modules
+      const Leaflet = (await import("leaflet")).default;
+      await import("leaflet/dist/leaflet.css");
+
+      if (!active || !ref.current) return;
+
+      // Fix default marker icons
+      delete (Leaflet.Icon.Default.prototype as any)._getIconUrl;
+      Leaflet.Icon.Default.mergeOptions({
+        iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+      });
+
+      const map = Leaflet.map(ref.current).setView(center, 16);
+      Leaflet.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap",
+      }).addTo(map);
+
+      Leaflet.circleMarker(center, {
+        radius: 8,
+        color: "#F97316",
+        fillColor: "#F97316",
+        fillOpacity: 1,
+      })
         .addTo(map)
-        .bindPopup(`<strong>${w.name}</strong><br/>⭐ ${w.rating} • ${w.distance}m`);
-    });
+        .bindPopup("Lokasi kamu (Tembalang)");
 
-    mapRef.current = map;
+      warungs.forEach((w) => {
+        Leaflet.marker([w.lat, w.lng])
+          .addTo(map)
+          .bindPopup(`<strong>${w.name}</strong><br/>⭐ ${w.rating} • ${w.distance}m`);
+      });
+
+      mapRef.current = map;
+    }
+
+    initMap();
+
     return () => {
-      map.remove();
-      mapRef.current = null;
+      active = false;
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
     };
   }, [warungs]);
 

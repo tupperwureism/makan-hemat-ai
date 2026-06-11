@@ -21,9 +21,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
 
       <div className="mt-3 flex items-center justify-between rounded-lg bg-primary-soft px-3 py-2">
         <span className="text-sm font-medium text-accent-foreground">Total</span>
-        <span className="text-base font-bold text-accent-foreground">
-          {formatRp(recipe.total)}
-        </span>
+        <span className="text-base font-bold text-accent-foreground">{formatRp(recipe.total)}</span>
       </div>
 
       <div className="mt-2 flex gap-2">

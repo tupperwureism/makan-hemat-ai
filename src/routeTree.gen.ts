@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as HasilRouteImport } from './routes/hasil'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as V2IndexRouteImport } from './routes/v2/index'
+import { Route as V2HasilRouteImport } from './routes/v2/hasil'
+import { Route as V2AdminRouteImport } from './routes/v2/admin'
 
 const HasilRoute = HasilRouteImport.update({
   id: '/hasil',
@@ -22,31 +25,58 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const V2IndexRoute = V2IndexRouteImport.update({
+  id: '/v2/',
+  path: '/v2/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const V2HasilRoute = V2HasilRouteImport.update({
+  id: '/v2/hasil',
+  path: '/v2/hasil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const V2AdminRoute = V2AdminRouteImport.update({
+  id: '/v2/admin',
+  path: '/v2/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/hasil': typeof HasilRoute
+  '/v2/admin': typeof V2AdminRoute
+  '/v2/hasil': typeof V2HasilRoute
+  '/v2/': typeof V2IndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/hasil': typeof HasilRoute
+  '/v2/admin': typeof V2AdminRoute
+  '/v2/hasil': typeof V2HasilRoute
+  '/v2': typeof V2IndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/hasil': typeof HasilRoute
+  '/v2/admin': typeof V2AdminRoute
+  '/v2/hasil': typeof V2HasilRoute
+  '/v2/': typeof V2IndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hasil'
+  fullPaths: '/' | '/hasil' | '/v2/admin' | '/v2/hasil' | '/v2/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hasil'
-  id: '__root__' | '/' | '/hasil'
+  to: '/' | '/hasil' | '/v2/admin' | '/v2/hasil' | '/v2'
+  id: '__root__' | '/' | '/hasil' | '/v2/admin' | '/v2/hasil' | '/v2/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HasilRoute: typeof HasilRoute
+  V2AdminRoute: typeof V2AdminRoute
+  V2HasilRoute: typeof V2HasilRoute
+  V2IndexRoute: typeof V2IndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,13 +95,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/v2/': {
+      id: '/v2/'
+      path: '/v2'
+      fullPath: '/v2/'
+      preLoaderRoute: typeof V2IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/v2/hasil': {
+      id: '/v2/hasil'
+      path: '/v2/hasil'
+      fullPath: '/v2/hasil'
+      preLoaderRoute: typeof V2HasilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/v2/admin': {
+      id: '/v2/admin'
+      path: '/v2/admin'
+      fullPath: '/v2/admin'
+      preLoaderRoute: typeof V2AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HasilRoute: HasilRoute,
+  V2AdminRoute: V2AdminRoute,
+  V2HasilRoute: V2HasilRoute,
+  V2IndexRoute: V2IndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

@@ -60,21 +60,14 @@ function HasilPage() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b border-border">
         <div className="mx-auto max-w-2xl px-4 py-3 flex items-center gap-3">
-          <Link
-            to="/"
-            className="rounded-lg p-2 hover:bg-secondary transition-colors"
-          >
+          <Link to="/" className="rounded-lg p-2 hover:bg-secondary transition-colors">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
             <div className="text-xs text-muted-foreground">
-              {state.mode === "sekali"
-                ? "Budget per makan"
-                : `Budget harian (${state.days} hari)`}
+              {state.mode === "sekali" ? "Budget per makan" : `Budget harian (${state.days} hari)`}
             </div>
-            <div className="text-lg font-bold text-foreground">
-              {formatRp(perDay)}
-            </div>
+            <div className="text-lg font-bold text-foreground">{formatRp(perDay)}</div>
           </div>
         </div>
       </header>
@@ -154,9 +147,7 @@ function MasakTab({ days }: { days: number }) {
       </div>
 
       <section className="rounded-2xl border border-border bg-card p-4">
-        <h3 className="font-semibold text-base text-foreground">
-          Stok belanja untuk {days} hari
-        </h3>
+        <h3 className="font-semibold text-base text-foreground">Stok belanja untuk {days} hari</h3>
         <div className="mt-3 overflow-hidden rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead className="bg-secondary">
@@ -170,12 +161,8 @@ function MasakTab({ days }: { days: number }) {
               {stok.map((s) => (
                 <tr key={s.name} className="border-t border-border">
                   <td className="px-3 py-2">{s.name}</td>
-                  <td className="px-3 py-2 text-center text-muted-foreground">
-                    {s.qty}x
-                  </td>
-                  <td className="px-3 py-2 text-right font-medium">
-                    {formatRp(s.total)}
-                  </td>
+                  <td className="px-3 py-2 text-center text-muted-foreground">{s.qty}x</td>
+                  <td className="px-3 py-2 text-right font-medium">{formatRp(s.total)}</td>
                 </tr>
               ))}
               <tr className="border-t border-border bg-primary-soft">
@@ -192,9 +179,7 @@ function MasakTab({ days }: { days: number }) {
       </section>
 
       <section className="rounded-2xl border border-border bg-card p-4">
-        <h3 className="font-semibold text-base text-foreground">
-          Jadwal masak ({days} hari)
-        </h3>
+        <h3 className="font-semibold text-base text-foreground">Jadwal masak ({days} hari)</h3>
         <div className="mt-3 space-y-2 max-h-72 overflow-auto pr-1">
           {schedule.map((s) => (
             <div
@@ -227,8 +212,16 @@ function RencanaTab({ state }: { state: BudgetState }) {
       return {
         day,
         dayName: dayNames[i % 7],
-        sarapan: { name: sarapan.name, price: sarapan.price, place: warungs[day % warungs.length].name },
-        siang: { name: siang.name, price: siang.price, place: warungs[(day + 1) % warungs.length].name },
+        sarapan: {
+          name: sarapan.name,
+          price: sarapan.price,
+          place: warungs[day % warungs.length].name,
+        },
+        siang: {
+          name: siang.name,
+          price: siang.price,
+          place: warungs[(day + 1) % warungs.length].name,
+        },
         malam: { name: malam.name, price: malam.total, place: "Masak di Kos" },
         subtotal,
       };
@@ -244,15 +237,11 @@ function RencanaTab({ state }: { state: BudgetState }) {
         <div className="flex items-end justify-between mb-2">
           <div>
             <div className="text-xs text-muted-foreground">Total estimasi</div>
-            <div className="text-xl font-bold text-foreground">
-              {formatRp(totalSpent)}
-            </div>
+            <div className="text-xl font-bold text-foreground">{formatRp(totalSpent)}</div>
           </div>
           <div className="text-right">
             <div className="text-xs text-muted-foreground">Budget</div>
-            <div className="text-sm font-semibold text-foreground">
-              {formatRp(totalBudget)}
-            </div>
+            <div className="text-sm font-semibold text-foreground">{formatRp(totalBudget)}</div>
           </div>
         </div>
         <Progress value={pct} className="h-2" />
@@ -265,10 +254,7 @@ function RencanaTab({ state }: { state: BudgetState }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {plan.map((d) => (
-          <div
-            key={d.day}
-            className="rounded-2xl border border-border bg-card p-4"
-          >
+          <div key={d.day} className="rounded-2xl border border-border bg-card p-4">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
@@ -276,9 +262,7 @@ function RencanaTab({ state }: { state: BudgetState }) {
                 </div>
                 <h4 className="font-semibold leading-tight">Hari {d.day}</h4>
               </div>
-              <span className="text-sm font-bold text-primary">
-                {formatRp(d.subtotal)}
-              </span>
+              <span className="text-sm font-bold text-primary">{formatRp(d.subtotal)}</span>
             </div>
             <div className="grid gap-2 text-sm">
               {[

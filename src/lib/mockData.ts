@@ -136,8 +136,7 @@ export const recipes: Recipe[] = [
   },
 ];
 
-export const formatRp = (n: number) =>
-  "Rp " + Math.round(n).toLocaleString("id-ID");
+export const formatRp = (n: number) => "Rp " + Math.round(n).toLocaleString("id-ID");
 
 export const criteriaOptions = [
   { id: "sayur", label: "🥗 Banyak sayur" },
